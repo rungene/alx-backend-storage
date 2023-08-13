@@ -3,4 +3,4 @@ DROP VIEW IF EXISTS need_meeting;
 CREATE VIEW need_meeting AS
 SELECT name
 WHERE score <80
-AND (last_meetig = NULL OR last_meeting < DATE_SUB(NOW(), INTERVAL 1 MONTH)
+AND (last_meeting IS NULL OR last_meeting < DATE_SUB(NOW(), INTERVAL 1 MONTH));
