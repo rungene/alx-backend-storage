@@ -5,3 +5,7 @@
 # 0x01. NoSQL
 
 **NoSQL Mongo DB**
+
+
+# 0x02. Redis basic
+**Back-end Redis**
