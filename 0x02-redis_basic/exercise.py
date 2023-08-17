@@ -35,7 +35,7 @@ class Cache:
         """
         if self._redis.exists(key):
             value = self._redis.get(key)
-            if fn not None:
+            if fn is not None:
                 return fn(value)
             return value
         else:
@@ -50,7 +50,7 @@ class Cache:
             return value.decode('utf-8')
         return ""
 
-    def get_int(self, key: str) -> str:
+    def get_int(self, key: str) -> int:
         """
         Converts retrived values to strings
         """
