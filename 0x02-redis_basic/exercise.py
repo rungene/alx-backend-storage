@@ -5,16 +5,16 @@ import uuid
 from functools import wraps
 
 
-def count_calls(func: Callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     """decorator that takes a single method Callable argument and
     returns a Callable.
     """
-    @wraps(func)
+    @wraps(method)
     def wrapper(self, *args, **kwargs):
         """Wrapper function"""
-        method_key = func.__qualname__
+        method_key = method.__qualname__
         self._redis.incr(method_key)
-        result = func(self, *args, **kwargs)
+        result = method(self, *args, **kwargs)
         return result
     return wrapper
 
