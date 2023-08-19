@@ -64,7 +64,7 @@ def replay(method: Callable) -> None:
     for input_str, output_str in zip(input_data, output_data):
         print('{}(*{}) -> {}'.format(method.__qualname__,
                                      input_str.decode('utf-8'),
-                                     output_data.decode('utf-8')))
+                                     output_str.decode('utf-8')))
 
 
 class Cache:
