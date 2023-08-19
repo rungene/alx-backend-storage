@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+exercise module
+"""
 import redis
 from typing import Union, Callable, Optional
 import uuid
