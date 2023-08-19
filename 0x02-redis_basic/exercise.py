@@ -54,7 +54,7 @@ def replay(method: Callable) -> None:
 
     cache = redis.Redis()
     calls = cache.get(method_name).decode('utf-8')
-    print('{} was called {} times'.format(method_name, calls))
+    print('{} was called {} times:'.format(method_name, calls))
 
     # Retrieve all elements
     input_data = cache.lrange(input_list_key, 0, -1)
@@ -64,7 +64,7 @@ def replay(method: Callable) -> None:
     for input_str, output_str in zip(input_data, output_data):
         print('{}(*{}) -> {}'.format(method.__qualname__,
                                      input_str.decode('utf-8'),
-                                     output_data.decode('utf-8')))
+                                     output_str.decode('utf-8')))
 
 
 class Cache:
