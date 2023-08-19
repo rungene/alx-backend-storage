@@ -52,7 +52,7 @@ def replay(method: Callable) -> None:
     input_list_key = method_name + ':inputs'
     output_list_key = method_name + ':outputs'
 
-    cache = Cache()
+    cache = redis.Redis()
     calls = cache.get(method_name).decode('utf-8')
     print('{} was called {} times'.format(method_name, calls))
 
