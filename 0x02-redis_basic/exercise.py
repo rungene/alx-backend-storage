@@ -19,6 +19,32 @@ def count_calls(method: Callable) -> Callable:
     return wrapper
 
 
+def call_history(method: Callable) -> Callable:
+    """decocaror taking a single method(callable as args
+    and resturns a callable"""
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """Wrapper function"""
+        # Call the original function
+        result = method(self, *args, **kwargs)
+        method_name = method.__qualname__
+        # Store input params as string
+        input_list_key = method_name + ':inputs'
+        # Convert args to a string
+        input_data = str(args)
+        self._redis.rpush(input_list_key, input_data)
+
+        # Output stored in diffrent list
+        output_list_key = method_name + ':outputs'
+        self._redis.rpush(output_list_key, str(result))
+
+        # retur output of original function call
+        return result
+
+    # return decorated function
+    return wrapper
+
+
 class Cache:
     """
     This class interacts with Redis database via redis.Redis() client
@@ -32,6 +58,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @call_history
     @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
